@@ -260,17 +260,11 @@
 
   function renderCartUI() {
     const itemsContainer = document.getElementById("cart-items");
-    const emptyMsg = document.getElementById("cart-empty-msg");
     const entries = Object.entries(cart);
 
-    if (entries.length === 0) {
-      itemsContainer.innerHTML = "";
-      itemsContainer.appendChild(emptyMsg);
-      emptyMsg.hidden = false;
-    } else {
-      emptyMsg.hidden = true;
-      itemsContainer.innerHTML = entries.map(([id, qty]) => cartItemHTML(id, qty)).join("");
-    }
+    itemsContainer.innerHTML = entries.length === 0
+      ? '<p class="empty-state" id="cart-empty-msg">Seu carrinho está vazio.</p>'
+      : entries.map(([id, qty]) => cartItemHTML(id, qty)).join("");
 
     const total = cartTotal();
     const count = cartCount();
